@@ -1,0 +1,33 @@
+services:
+
+    #    $container->setParameter('ddr_angular_integration.name', $config['name']);
+    #    $container->setParameter('ddr_angular_integration.short_name', $config['short_name']);
+    #    $container->setParameter('ddr_angular_integration.theme_color', $config['theme_color']);
+    #    $container->setParameter('ddr_angular_integration.background_color', $config['background_color']);
+    #    $container->setParameter('ddr_angular_integration.package_manager', $config['package_manager']);
+    #    $container->setParameter('ddr_angular_integration.hrefs.app', $config['hrefs']['app']);
+    #    $container->setParameter('ddr_angular_integration.hrefs.api', $config['hrefs']['api']);
+    #    $container->setParameter('ddr_angular_integration.directories.root', $config['directories']['root']);
+    #    $container->setParameter('ddr_angular_integration.directories.src', $config['directories']['src']);
+    #    $container->setParameter('ddr_angular_integration.external_styles', $config['external_styles']);
+
+    Dontdrinkandroot\AngularIntegrationBundle\Service\AngularIntegrationService:
+        arguments:
+            - '@kernel'
+            - '%ddr_angular_integration.name%'
+            - '%ddr_angular_integration.short_name%'
+            - '%ddr_angular_integration.theme_color%'
+            - '%ddr_angular_integration.background_color%'
+            - '%ddr_angular_integration.package_manager%'
+            - '%ddr_angular_integration.hrefs.app%'
+            - '%ddr_angular_integration.hrefs.api%'
+            - '%ddr_angular_integration.directories.root%'
+            - '%ddr_angular_integration.directories.src%'
+            - '%ddr_angular_integration.external_styles%'
+
+    Dontdrinkandroot\AngularIntegrationBundle\Command\AngularCommand:
+        arguments:
+            - '@twig'
+            - '@Dontdrinkandroot\AngularIntegrationBundle\Service\AngularIntegrationService'
+        tags:
+            - { name: 'console.command', command: 'ddr:angular' }
