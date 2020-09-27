@@ -4,7 +4,6 @@ namespace Dontdrinkandroot\AngularIntegrationBundle\Command;
 
 use Dontdrinkandroot\AngularIntegrationBundle\Service\AngularIntegrationService;
 use RuntimeException;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,15 +18,9 @@ class AngularCommand extends Command
 {
     protected static $defaultName = 'ddr:angular';
 
-    /**
-     * @var AngularIntegrationService
-     */
-    private $angularIntegrationService;
+    private AngularIntegrationService $angularIntegrationService;
 
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
     public function __construct(Environment $twig, AngularIntegrationService $angularIntegrationService)
     {
@@ -84,7 +77,10 @@ class AngularCommand extends Command
 
                 $installProcess = new Process(
                     [$packageManager, 'install'],
-                    $this->angularIntegrationService->getDirectoryRoot()
+                    $this->angularIntegrationService->getDirectoryRoot(),
+                    null,
+                    null,
+                    120
                 );
                 $installProcess->mustRun(
                     function ($type, $buffer) {
@@ -202,8 +198,13 @@ class AngularCommand extends Command
             $command[] = '--prod';
             $comment[] = '--aot';
         }
-        $angularBuildProcess = new Process($command, $this->angularIntegrationService->getDirectoryRoot());
-        $angularBuildProcess->setTimeout(300);
+        $angularBuildProcess = new Process(
+            $command,
+            $this->angularIntegrationService->getDirectoryRoot(),
+            null,
+            null,
+            300
+        );
         $output->writeln('Executing: ' . $angularBuildProcess->getCommandLine());
         $angularBuildProcess->mustRun();
     }

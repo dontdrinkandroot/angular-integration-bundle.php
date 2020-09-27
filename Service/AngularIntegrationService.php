@@ -9,60 +9,27 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class AngularIntegrationService
 {
-    /**
-     * @var KernelInterface
-     */
-    private $kernel;
+    private KernelInterface $kernel;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var string
-     */
-    private $shortName;
+    private string $shortName;
 
-    /**
-     * @var string
-     */
-    private $themeColor;
+    private string $themeColor;
 
-    /**
-     * @var string
-     */
-    private $backgroundColor;
+    private string $backgroundColor;
 
-    /**
-     * @var string
-     */
-    private $packageManager;
+    private string $packageManager;
 
-    /**
-     * @var string
-     */
-    private $hrefApp;
+    private string $hrefApp;
 
-    /**
-     * @var string
-     */
-    private $hrefApi;
+    private string $hrefApi;
 
-    /**
-     * @var string
-     */
-    private $directoryRoot;
+    private string $directoryRoot;
 
-    /**
-     * @var string
-     */
-    private $directorySrc;
+    private string $directorySrc;
 
-    /**
-     * @var array
-     */
-    private $externalStyles;
+    private array $externalStyles;
 
     public function __construct(
         KernelInterface $kernel,
